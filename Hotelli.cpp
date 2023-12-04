@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-	int toiminto;
+	int task;
 	cout << "Tervetuloa (nimi) hotelliin!\n"
 		<< "----------------------------\n\n";
 	
@@ -14,9 +14,9 @@ int main() {
 			<< "Toiminto 4\n"
 			<< "----------\n"
 			<< "Syöte: ";
-		cin >> toiminto;
+		cin >> task;
 		cout << "----------\n";
-		switch (toiminto)
+		switch (task)
 		{
 		case 1:
 			cout << "\ntoiminto 1\n\n";
@@ -34,6 +34,6 @@ int main() {
 			cout << "\nKatoppa uuestaa!\n\n";
 			break;
 		}
-	} while (toiminto != 4);
+	} while (task != 4);
 		return 0;
 }
