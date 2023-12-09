@@ -23,14 +23,6 @@ private:
 	vector<hotelRooms> rooms;
 
 public:
-	/*hotelReservation(int singleRooms, int doubleRooms) {
-		for (int i = 1; i <= singleRooms; i++) {
-			rooms.push_back(hotelRooms(i, false));
-		}
-		for (int i = singleRooms + 1; i <= singleRooms + doubleRooms; i++) {
-			rooms.push_back(hotelRooms(i, true));
-		}
-	}*/
 
 	hotelReservation(int totalRooms) {
 		random_device rd;
@@ -45,26 +37,6 @@ public:
 			bool isDouble = i > singleRooms;
 			rooms.push_back(hotelRooms(i, isDouble));
 		}
-
-		/*// Generoidaan ensin yhden hengen huoneet
-		for (int i = 0; i < totalRooms / 2; ++i) {
-			int roomNumber;
-			do {
-				roomNumber = distSingle(gen);
-			} while (roomNumber % 2 != 0); // Tarkistetaan, ett‰ numero on parillinen
-
-			rooms.push_back(hotelRooms(roomNumber, false)); // Yhden hengen huone
-		}
-
-		// Generoidaan kahden hengen huoneet
-		for (int i = totalRooms / 2 + 1; i <= totalRooms; ++i) {
-			int roomNumber;
-			do {
-				roomNumber = distSingle(gen);
-			} while (roomNumber % 2 != 0); // Tarkistetaan, ett‰ numero on parillinen
-
-			rooms.push_back(hotelRooms(roomNumber, true)); // Kahden hengen huone
-		}*/
 	}
 
 	void displayAvailableRooms() const {
@@ -122,36 +94,10 @@ public:
 	}
 };
 
-/*int generateRandomNum(int min, int max) {
-	return rand() % (max - min + 1) + min;
-}*/
-
 int main() {
 	srand(time(0));
 	
 	hotelReservation hotel(0);
-
-	//int totalRooms = generateRandomNum(40, 300);
-	
-
-	/*int singlePrice = 100;
-	int doublePrice = 150;
-
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> distTotalRooms(40, 300);
-
-	int totalRooms;
-	do {
-		totalRooms = distTotalRooms(gen);
-	} while (totalRooms % 2 != 0); // Varmistetaan, ett‰ huoneiden m‰‰r‰ on parillinen
-
-	hotelReservation hotel(totalRooms);
-	
-	int singleRooms = totalRooms / 2;
-	int doubleRooms = totalRooms - singleRooms;*/
-	
-	//hotelReservation hotel(singleRooms, doubleRooms);
 	
 	int task;
 	cout << "Tervetuloa (nimi) hotelliin!\n"
@@ -190,7 +136,6 @@ int main() {
 			//cout << "\ntoiminto 2\n\n";
 			break;
 		case 3:
-			//hotel.displayBill();
 			hotel.displayReservedRooms();
 			//cout << "\ntoiminto 3\n\n";
 			break;
