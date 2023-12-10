@@ -1,3 +1,3 @@
 ﻿  Hotelli.cpp
-C:\Users\Jesse\OneDrive - TUNI.fi\C++ Perusteet\Hotelli(harjoitustyö)\Hotelli.cpp(130,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Jesse\OneDrive - TUNI.fi\C++ Perusteet\Hotelli(harjoitustyö)\Hotelli.cpp(185,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Hotelli(harjoitustyö).vcxproj -> C:\Users\Jesse\OneDrive - TUNI.fi\C++ Perusteet\Hotelli(harjoitustyö)\x64\Debug\Hotelli(harjoitustyö).exe
