@@ -9,26 +9,27 @@ using namespace std;
 
 class hotelRooms {
 public:
-	int roomNumber;
-	int roomPrice;
-	int nights;
-	bool reserved;
-	bool isDoubleRoom;
+	int roomNumber;	// Room number
+	int roomPrice;	// Room price
+	int nights;	// Number of nights
+	bool reserved;	// Is the room reserved
+	bool isDoubleRoom;	// Is it a double room
 
 	hotelRooms(int number, bool isDouble) : roomNumber(number), roomPrice(0), nights(0), reserved(false), isDoubleRoom(isDouble){}
 };
 
 class hotelReservation {
 private:
-	vector<hotelRooms> rooms;
+	vector<hotelRooms> rooms;	// Vector of hotel rooms
 
-	int actualTotalRooms;
-	int singleRooms;
-	int doubleRooms;
+	int actualTotalRooms;	// Actual total number of rooms
+	int singleRooms;	// Number of single rooms
+	int doubleRooms;	// Number of double rooms
 
 public:
-
+	// Constructor to initialize hotel rooms
 	hotelReservation(int totalRooms) {
+		// Randomly generate the total number of rooms in the hotel
 		random_device rd;
 		mt19937 gen(rd());
 		uniform_int_distribution<int> distTotalRooms(40, 300);
@@ -39,6 +40,7 @@ public:
 		int singleRooms = actualTotalRooms / 2;
 		int doubleRooms = actualTotalRooms - singleRooms;
 
+		// Populate the vector with hotel rooms
 		for (int i = 2; i <= actualTotalRooms * 2; i += 2) {
 			bool isDouble = i > singleRooms * 2;
 			rooms.push_back(hotelRooms(i, isDouble));
@@ -48,7 +50,8 @@ public:
 		this->singleRooms = singleRooms;
 		this->doubleRooms = doubleRooms;
 	}
-
+	
+	// Display available rooms and room counts
 	void displayAvailableRooms() const {
 		cout << "Vapaana olevat huoneet: ";
 
@@ -63,6 +66,7 @@ public:
 		cout << endl;
 	}
 
+	// Display reserved rooms and room counts
 	void displayReservedRooms() const {
 		int reservedTotalRooms = 0;
 		int reservedSingleRooms = 0;
@@ -88,6 +92,7 @@ public:
 		cout << endl;
 	}
 
+	// Reserve a room based on room number and nights
 	bool reserveRoom(int roomNumber, int nights) {
 		for (auto& room : rooms) {
 			if (room.roomNumber == roomNumber && !room.reserved) {
@@ -106,6 +111,7 @@ public:
 		return false;
 	}
 
+	// Display the bill for reserved rooms with a random discount
 	void displayBill() const {
 		double totalAmount = 0.0;
 		double discount = (rand() % 3) * 0.1; // Alennus 0%, 10% tai 20%;
@@ -128,6 +134,7 @@ public:
 		}
 	}
 
+	// Perform automatic reservation based on user input
 	int automaticReservation(hotelReservation& hotel, bool& roomReserved) {
 		int roomType, nights;
 
@@ -164,6 +171,7 @@ public:
 		return roomType;
 	}
 
+	// Perform manual reservation based on user input
 	int manualReservation(hotelReservation& hotel, bool& roomReserved) {
 		int roomNumber, nights;
 		cout << "Syötä huoneen numero: ";
@@ -181,6 +189,7 @@ public:
 	}
 
 public:
+	// Get positive user input
 	int getPositiveInput() const {
 		int value;
 		while (true) {
@@ -197,6 +206,7 @@ public:
 		return value;
 	}
 
+	// Get user input within a specific range
 	int getInput(int min, int max) const {
 		int value;
 		while (true) {
@@ -221,7 +231,7 @@ int main() {
 	
 	int task;
 	bool roomReserved = false;
-	cout << "Tervetuloa (nimi) hotelliin!\n"
+	cout << "Tervetuloa tämmöseen hienoon hotelliin!\n"
 		<< "----------------------------\n\n";
 	
 	do {
@@ -252,10 +262,10 @@ int main() {
 		case 5:
 			if (roomReserved) {
 				hotel.displayBill();
-				cout << "\nHyvästi ja hyvää loppuelämää...\n\n";
+				cout << "\nToivottavasti viihdyt hotellissa ja näemme vielä uudestaan.\n\n";
 			}
 			else {
-				cout << "\nPahoittelut mikäli et ollut tyytyväinen hotellimme tarjontaan.\n\n";
+				cout << "\nPahoittelut mikäli et löytänyt huonetta joka kelpaisi sinulle.\n\n";
 			}
 			break;
 		default:
@@ -264,7 +274,7 @@ int main() {
 		}
 	} while (task != 5);
 
-	cout << "Paina jotain näppäintä sulkeaksesi ohjelman...";
+	cout << "Paina jotain näppäintä poistuaksesi ohjelmasta...";
 	cin.ignore();
 	cin.get();
 
