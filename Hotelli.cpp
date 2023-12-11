@@ -132,11 +132,11 @@ public:
 		int roomType, nights;
 
 		cout << "Haluatko yhden vai kahden hengen huoneen? (1 = yhden hengen huone ja 2 = kahden hengen huone)\nSyöte: ";
-		cin >> roomType;
+		roomType = getInput(1, 2);
 
 		if (roomType == 1 or roomType == 2) {
 			cout << "Montako yötä aiot viipyä?\nSyöte: ";
-			cin >> nights;
+			nights = getPositiveInput();
 
 			int availableRoomNumber = -1;
 			for (const auto& room : hotel.rooms) {
@@ -167,9 +167,9 @@ public:
 	int manualReservation(hotelReservation& hotel, bool& roomReserved) {
 		int roomNumber, nights;
 		cout << "Syötä huoneen numero: ";
-		cin >> roomNumber;
+		roomNumber = getPositiveInput();
 		cout << "Syötä öiden määrä: ";
-		cin >> nights;
+		nights = getPositiveInput();
 		if (hotel.reserveRoom(roomNumber, nights)) {
 			cout << "\nHuone varattu onnistuneesti.\n\n";
 			roomReserved = true;
@@ -178,6 +178,39 @@ public:
 			cout << "\nValittu huone on jo varattu tai ei ole saatavilla.\n\n";
 		}
 		return roomNumber;
+	}
+
+public:
+	int getPositiveInput() const {
+		int value;
+		while (true) {
+			cin >> value;
+			if (cin.fail() or value <= 0) {
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "Virheellinen syöte yritä uudelleen.";
+			}
+			else {
+				break;
+			}
+		}
+		return value;
+	}
+
+	int getInput(int min, int max) const {
+		int value;
+		while (true) {
+			cin >> value;
+			if (cin.fail() or value < min or value > max) {
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "Virheellinen syöte anna luku " << min << " ja " << max << " väliltä.";
+			}
+			else {
+				break;
+			}
+		}
+		return value;
 	}
 };
 
@@ -192,7 +225,7 @@ int main() {
 		<< "----------------------------\n\n";
 	
 	do {
-		cout << "Lista toimminoista hotellihuoneen varaukseen (syötä numero väliltä 1-4):\n"
+		cout << "Lista toimminoista hotellihuoneen varaukseen (syötä numero väliltä 1-5):\n"
 			<< "Syötä 1 jos haluat varata huoneita.\n"
 			<< "Syötä 2 jos haluat ohjelman varaavan huoneen,\nilmoita vain haluatko yhden vai kahden hengen huoneen ja montako yötä aiot viipyä.\n"
 			<< "Syötä 3 jos haluat nähdä vapaana olevat huoneet.\n"
@@ -200,7 +233,7 @@ int main() {
 			<< "Syötä 5 jos haluat poistua ohjelmasta.\n"
 			<< "----------\n"
 			<< "Syöte: ";
-		cin >> task;
+		task = hotel.getInput(1, 5);
 		cout << "----------\n";
 		switch (task)
 		{
@@ -226,7 +259,7 @@ int main() {
 			}
 			break;
 		default:
-			cout << "\nKatoppa uuestaa!\n\n";
+			cout << "\nVirheellinen syöte yritä uudelleen.\n\n";
 			break;
 		}
 	} while (task != 5);
